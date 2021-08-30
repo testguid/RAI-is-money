@@ -11,7 +11,7 @@ None! Pure JS.
 The extension has been submitted to the Chrome Web Store and is pending review. Once published any Chromium based browser can use the store to install. 
 
 Manual installation:
-- download the repository
+- [download the repository](https://github.com/testguid/RAI-is-money/archive/refs/heads/main.zip)
 - extract
 - navigate to chrome://extensions/ or edge://extensions/
   - enable developer mode
