@@ -9,10 +9,10 @@ const defaultOptions = {
 };
 
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
-	if (!request.price) {
+	if (!request.updateBadge) {
 		return;
 	}
-	updateBadge(request.price);	
+	chrome.storage.sync.get(null, updateBadgeWithConversionPrice);
 });
 
 chrome.runtime.onInstalled.addListener(() => {

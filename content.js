@@ -88,6 +88,7 @@ async function startReplace(storage) {
 		return;
 	}
 	const price = await getCachedPrice(storage);
+	chrome.runtime.sendMessage({updateBadge: true}, function() {}); 
 	const replacerFunction = getReplacerFunction(price);
 	replaceAndObserve(document, replacerFunction);
 }
@@ -134,19 +135,14 @@ function captureConversion(numCapture, postfixCapture, price) {
 	}
 }
 
-async function getPrice(storage) {
-	const prices = await getPrices();
-	return getConversionPrice(prices, storage.options.useRedemptionPrice)
-}
-
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 	if (!request.requestPriceUpdate) {
 		return;
 	}
-	chrome.storage.sync.get(null, getPrice); 
-	return true;
+	getPrices();
 });
 
+//TODO: use this storage listener to apply options like disable/enable conversion to the page in real time
 chrome.storage.onChanged.addListener(function (changes, namespace) {
 	if (!changes.options) {
 		return;

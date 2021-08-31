@@ -50,7 +50,7 @@ async function getPrices() {
         fetchPromise(redemptionPriceEndpoint, redemptionPriceQuery), 
         fetchPromise(marketPriceEndpoint, marketPriceQuery)
     ]);
-    return updateCache(responseArray)
+    return updateCache(responseArray);
 }
 
 function fetchPromise(url, query) {
