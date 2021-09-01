@@ -10,15 +10,22 @@ None! Pure JS.
 Any Chromium based browser is supported.
 
 ## Installation
-### Store
+### Store - currently version 0.1
 Add from the [chrome web store listing.](https://chrome.google.com/webstore/detail/rai-is-money/efedgnjpkdppihmkeapeloadceipmjfb)
 
-### Manual installation:
+### Manual Installation - currently version 0.2
 - [download the repository](https://github.com/testguid/RAI-is-money/archive/refs/heads/main.zip)
 - extract
 - navigate to chrome://extensions/ or edge://extensions/
   - enable developer mode
   - load unpacked and point to the extension folder ex: \downloads\RAI is money 
+
+## Release Notes
+### 0.1
+Initial commit.
+
+### 0.2
+Better initial experience for the badge price (it will appear after first page load rather than after 30 minutes or extension menu interaction).
 
 ## Features and Examples
 - USD -> RAI conversion
