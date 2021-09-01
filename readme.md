@@ -7,10 +7,13 @@ Learn more about RAI at https://reflexer.finance/
 ## Dependencies
 None! Pure JS.
 
-## Installation
-The extension has been submitted to the Chrome Web Store and is pending review. Once published any Chromium based browser can use the store to install. 
+Any Chromium based browser is supported.
 
-Manual installation:
+## Installation
+### Store
+Add from the [chrome web store listing.](https://chrome.google.com/webstore/detail/rai-is-money/efedgnjpkdppihmkeapeloadceipmjfb)
+
+### Manual installation:
 - [download the repository](https://github.com/testguid/RAI-is-money/archive/refs/heads/main.zip)
 - extract
 - navigate to chrome://extensions/ or edge://extensions/
