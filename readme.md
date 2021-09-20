@@ -43,7 +43,7 @@ Submission for the second bounty!
       - easily disabled if it ends up causing issues on the page
 - Supports additional crypto and fiat conversions. These conversions are based on the optimal and accurate RAI price route through uni v3 rai/dai. The target is priced in DAI and then into RAI.
 - Toggle the extension or site block list and conversions revert in real time, no refresh needed.
-- Supports spaces, commas, and dots as thousands separators. Supports commas and dots and decimal points. The conversions are rendered using the same style as the original text.
+- Supports spaces, commas, and dots as thousands separators. Supports commas and dots as decimal points. The conversions are rendered using the same style as the original text.
 - Conversions have the same decimal places as source text, except if the conversion would round to 0 in which case 1 decimal point is used.
 
 
