@@ -18,7 +18,7 @@ const raiPrice = document.getElementById("rai_price");
 const daiPrice = document.getElementById("dai_price");
 const redemptionPrice = document.getElementById("redemption_price");
 const redemptionRate = document.getElementById("redemption_rate");
-const pricesDisplay = document.getElementById("prices");
+const pricesDisplay = document.getElementById("prices_list");
 const advancedToggle = document.getElementById("advancedToggle");
 const advanced = document.getElementById("advanced");
 
@@ -87,7 +87,13 @@ function writePrices(prices) {
     daiPrice.textContent = '1 DAI = ' + prices.marketPriceDaiInRai.toLocaleString(undefined, format3) + ' RAI';
     redemptionPrice.textContent = prices.redemptionPrice.toLocaleString(undefined, format4);
     redemptionRate.textContent = prices.redemptionRate.toLocaleString(undefined, format3) + '%';
-    pricesDisplay.textContent = Object.entries(prices.responseArray[2].value).toString().replace(/\,/g, ' <br> ');
+    
+    for (const entry of Object.entries(displayNames)) {
+        const listItem = document.createElement('li');
+        console.log(`RAI / ${entry[1]}: ${prices.priceDivisors[entry[0]].toLocaleString(undefined, format3)}`)
+        listItem.textContent = `RAI / ${entry[1]}: ${prices.priceDivisors[entry[0]].toLocaleString(undefined, format3)}`;
+        pricesDisplay.appendChild(listItem);
+    }
 }
 
 function onLoad() {
@@ -115,6 +121,5 @@ function onLoad() {
         } else {
             advanced.classList.add("hide");
         }    
-        writePrices(data.prices);
     });
 }

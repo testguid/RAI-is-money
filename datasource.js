@@ -47,6 +47,24 @@ const marketPriceQuery = `
 
   const vs_currencies = ['usd', 'eur', 'gbp', 'cny', 'jpy', 'krw', 'inr'];
   const coingeckoIds = ['usd-coin','dai','nusd','terrausd','tether','paxos-standard','binance-usd','liquity-usd','float-protocol-float'];
+  const displayNames = {
+      usd: 'USD',
+      eur: 'EUR',
+      gbp: 'GBP',
+      cny: 'CNY',
+      jpy: 'JPY',
+      krw: 'KRW',
+      inr: 'INR',
+      'usd-coin': 'USDC',
+      dai: 'DAI',
+      tether: 'USDT',
+      nusd: 'sUSD',
+      terrausd: 'UST',
+      'paxos-standard': 'PAX',
+      'binance-usd': 'BUSD',
+      'liquity-usd': 'LUSD',
+      'float-protocol-float': 'FLOAT'
+  };
   const coingeckoEndpoint = `https://api.coingecko.com/api/v3/simple/price?ids=${coingeckoIds.join(',')}&vs_currencies=${vs_currencies.join(',')}`;
 
 async function getPrices() {
