@@ -3,9 +3,9 @@ const defaultOptions = {
     conversionEnabled: true,
     useRedemptionPrice: false,
     digits: 3,
-    highlightEnabled: true,
+    highlightEnabled: false,
     refreshInterval: 30,
-    priceOnBadge: true
+    priceOnBadge: false
 };
 
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {

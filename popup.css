@@ -28,6 +28,10 @@
     border: 2px solid blue; 
 }
 
+.hide {
+    display:none
+}
+
 .white_text * {
     color: white;
     fill: white;

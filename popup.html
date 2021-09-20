@@ -6,51 +6,61 @@
     <script src="popup.js" type="module"></script>
     <link href="popup.css" rel="stylesheet">
   </head>
-<body class="white_text" text="#ffffff" style="height:470px;width:200px;    background: linear-gradient(rgb(37, 42, 56), rgb(23, 32, 38))">
-  <img src="images/logoHText-color.png" class="center" style="width:120px;">
+<body class="white_text" text="#ffffff" style="height:220px;width:200px;    background: linear-gradient(rgb(37, 42, 56), rgb(23, 32, 38))">
+  <br>
+    <img src="images/reflexer.svg" class="center" style="width:120px;">
+  <br>
   <fieldset>
     <legend id="current_url"></legend>
     <button id="blacklist_toggle" class="button_wrapper button_hover">
     </button>
   </fieldset>
   <br>
-  <fieldset>
-    <legend>global options</legend>
     <button id="global_toggle" class="button_wrapper button_hover">
     </button>
-    <button id="use_redemption_price" class="button_wrapper button_hover">
-    </button>
-    <label for="digits">conversion digits:</label>
-    <span id="digits_number">3</span>
-    <input id="digits_control" style="width: 100%;" type="range" id="digits" name="digits" min="0" max="10" value="3" step="1">
-    <input type="checkbox" id="highlight" name="highlight">
-    <label for="highlight">highlight conversions</label>
     <br>
-    <input type="checkbox" id="badge_price" name="badge_price">
-    <label for="badge_price">price on extension badge</label>
-  </fieldset>
-  <br>
-  <div>
-    <img style="width: 20px;" src="images/RAI-logo-coin-cropped.png"> 
-    <span id="rai_price" style="font-size:10vw">1 RAI = x DAI</span>
-  </div>
-  <div>
-    <img style="width: 20px;" src="https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x6B175474E89094C44Da98b954EedeAC495271d0F/logo.png"> 
-    <span id="dai_price" style="padding-bottom: 10%; font-size:10vw">1 DAI = x RAI</span>
-  </div>
-  <br>
-  <div>
-    redemption price:
-    <div id="redemption_price" style="float: right; padding-right: 10%; font-size:11vw">
-      -
+    <br>
+    <a id="advancedToggle" href="" class="center">advanced</a>
+    <div id="advanced">
+        <div style="padding-bottom: 20px;"></div>
+        <button id="use_redemption_price" class="button_wrapper button_hover">
+        </button>
+        <input type="checkbox" id="highlight" name="highlight">
+        <label for="highlight">highlight conversions</label>
+        <br>
+        <input type="checkbox" id="badge_price" name="badge_price">
+        <label for="badge_price">price on extension badge</label>
+        <br>
+        <div>
+            <img style="width: 20px;" src="images/RAI-logo-coin-cropped.png"> 
+            <span id="rai_price" style="font-size:10vw">1 RAI = x DAI</span>
+        </div>
+        <div>
+            <img style="width: 20px;" src="https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x6B175474E89094C44Da98b954EedeAC495271d0F/logo.png"> 
+            <span id="dai_price" style="padding-bottom: 10%; font-size:10vw">1 DAI = x RAI</span>
+        </div>
+        <br>
+        <div>
+            redemption price:
+            <div id="redemption_price" style="float: right; padding-right: 10%; font-size:10vw">
+                -
+            </div>
+        </div>
+        <br>
+        <div>
+            redemption rate:
+            <div id="redemption_rate" style="float: right; padding-right: 10%; font-size:10vw">
+                -
+            </div>
+        </div>
+        <div>
+            <br>
+            <br>
+            prices:
+            <p id="prices" style="float: right; padding-right: 10%; font-size:4vw">
+                -
+            </p>
+        </div>
     </div>
-  </div>
-  <br>
-  <div>
-    redemption rate:
-    <div id="redemption_rate" style="float: right; padding-right: 10%; font-size:11vw">
-      -
-    </div>
-  </div>  
 </body>
 </html>
