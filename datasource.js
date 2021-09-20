@@ -45,7 +45,7 @@ const marketPriceQuery = `
     }
   }`;
 
-  const vs_currencies = ['usd', 'eur', 'gbp', 'cny', 'jpy', 'krw'];
+  const vs_currencies = ['usd', 'eur', 'gbp', 'cny', 'jpy', 'krw', 'inr'];
   const coingeckoIds = ['usd-coin','dai','nusd','terrausd','tether','paxos-standard','binance-usd','liquity-usd','float-protocol-float'];
   const coingeckoEndpoint = `https://api.coingecko.com/api/v3/simple/price?ids=${coingeckoIds.join(',')}&vs_currencies=${vs_currencies.join(',')}`;
 
