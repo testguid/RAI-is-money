@@ -20,7 +20,7 @@ const indicators = {
         symbol: /¥/
     },
     krw: {
-        textSymbols: [/KRW/, /(?:korean\s*)?won/],
+        textSymbols: [/KRW/, /(?:south\s*)?(?:korean\s*)?won/],
         symbol: /₩/
     },
     inr: {
