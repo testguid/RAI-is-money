@@ -44,7 +44,7 @@ const indicators = {
         textSymbols: [/UST/]
     },
     pusd: {
-        textSymbols: [/paxos/, /PAX/, /USDP/],
+        textSymbols: [/paxos/, /PAX(?!.*RAI)/, /USDP(?!.*RAI)/],
         name: 'paxos-standard'
     },
     busd: {
@@ -105,20 +105,18 @@ const options = {};
 const prices = {};
 
 function highlight(element, elementData) {
-    if (!element || !options.highlightEnabled) {
+    if (!element || !element.style || !options.highlightEnabled || elementData.highlightOngoing) {
         return;
     }
-    if (!element.style) {
-        if (!element.parentNode || !element.parentNode.style) {
-            return;
-        }
-        element = element.parentNode;
-    }
-    if (elementData.color === undefined) {
-        elementData.color = element.style.textShadow;
-    }
+    elementData.highlightOngoing = true;
+    elementData.color = element.style.textShadow;
     element.style.textShadow = shadow;
-    setTimeout(() => element.style.textShadow = elementData.color, 600);
+    setTimeout(() => endHighlight(element, elementData), 600);
+}
+
+function endHighlight(element, elementData) {
+    elementData.highlightOngoing = false;
+    element.style.textShadow = elementData.color;
 }
 
 function replaceInTextNode(node, replacerFunction) {
