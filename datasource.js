@@ -123,7 +123,7 @@ class Prices {
     }
 
     getPriceDivisor(id) {
-        if (id === 'usd') {
+        if (id === 'usd' || id === 'dai') {
             return this.marketPriceRaiInDai;
         }
         if (vs_currencies.includes(id)) {

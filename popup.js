@@ -83,8 +83,8 @@ function onAdvanced(event) {
 }
 
 function writePrices(prices) {
-    raiPrice.textContent = '1 RAI = ' + prices.marketPriceRaiInDai.toLocaleString(undefined, format3) + ' DAI';
-    daiPrice.textContent = '1 DAI = ' + prices.marketPriceDaiInRai.toLocaleString(undefined, format3) + ' RAI';
+    raiPrice.textContent = '1 RAI = ' + prices.marketPriceRaiInDai.toLocaleString(undefined, format4) + ' DAI';
+    daiPrice.textContent = '1 DAI = ' + prices.marketPriceDaiInRai.toLocaleString(undefined, format4) + ' RAI';
     redemptionPrice.textContent = prices.redemptionPrice.toLocaleString(undefined, format4);
     redemptionRate.textContent = prices.redemptionRate.toLocaleString(undefined, format3) + '%';
     

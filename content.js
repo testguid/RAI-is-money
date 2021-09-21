@@ -169,29 +169,14 @@ function replaceInText(element, replacerFunction) {
     }
 }
 
-function getConversionPrice(prices, useRedemptionPrice) {
-    if (useRedemptionPrice) {
-        return prices.redemptionPrice;
-    }
-    return prices.marketPriceRaiInDai;
-}
-
-async function getCachedPrice(storage) {
-    if (!storage.prices) {
-        return getConversionPrice(await getPrices(), storage.options.useRedemptionPrice);
-    }
-    return getConversionPrice(storage.prices, storage.options.useRedemptionPrice);
-}
-
 async function startReplace(storage) {
     Object.assign(options, storage.options);
     Object.assign(prices, storage.prices);
-    if (options.blacklist[window.location.hostname] || !options.conversionEnabled) {
+    if (conversionsDisabled()) {
         return;
     }
-    const price = await getCachedPrice(storage);
     chrome.runtime.sendMessage({ updateBadge: true }, function () { });
-    const replacerFunction = getReplacerFunction(price);
+    const replacerFunction = getReplacerFunction();
     replaceAndObserve(document, replacerFunction);
 }
 
@@ -220,12 +205,7 @@ function observe(callback, element, options) {
 
 function getReplacerFunction() {
     return function (...params) {
-        let match = params[0];
-        let string = params[params.length - 2];
-        // console.log(match);
-        // console.log(string);
         let groups = params.pop();
-        // console.log(groups);
         for (const entry of Object.entries(groups)) {
             if (!entry[1] || decimalNames.includes[entry[0]]) {
                 continue;
@@ -288,17 +268,18 @@ chrome.storage.onChanged.addListener(function (changes, namespace) {
         return;
     }
     Object.assign(options, changes.options.newValue);
-    if (options.blacklist[window.location.hostname] || !options.conversionEnabled) {
+    if (conversionsDisabled()) {
         observer.disconnect();
         elementMap.forEach(setOriginalText);
         return;
     }
-    if (elementMap.size === 0) {
-        start();
-        return;
-    }
     elementMap.forEach(setConversionText);
+    start();
 });
+
+function conversionsDisabled() {
+    return options.blacklist[window.location.hostname] || !options.conversionEnabled;
+}
 
 function setOriginalText(value, key, map) {
     key.textContent = value.originalText;
