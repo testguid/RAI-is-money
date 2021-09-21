@@ -104,8 +104,6 @@ const elementMap = new Map();
 const options = {};
 const prices = {};
 
-let highlightEnabled = false;
-
 function highlight(element, elementData) {
     if (!element || !options.highlightEnabled) {
         return;
@@ -134,6 +132,7 @@ function replaceInTextNode(node, replacerFunction) {
         elementData.newText = newText;
         elementData.conversion = true;
         node.textContent = newText;
+        highlight(node, elementData);
     }
     newText = node.textContent.replace(globalRegexPost, replacerFunction);
     if (newText !== node.textContent) {
@@ -144,9 +143,7 @@ function replaceInTextNode(node, replacerFunction) {
         elementData.originalText = node.textContent;
         elementData.newText = newText;
         elementData.conversion = true;
-        node.textContent = newText;
-    }
-    if (highlightEnabled && node.textContent !== elementData.originalText) {
+        node.textContent = newText;        
         highlight(node, elementData);
     }
 }
