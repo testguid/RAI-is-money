@@ -13,7 +13,7 @@ Any Chromium based browser is supported.
 ### Store - currently version 0.2
 Add from the [chrome web store listing.](https://chrome.google.com/webstore/detail/rai-is-money/efedgnjpkdppihmkeapeloadceipmjfb)
 
-### Manual Installation - currently version 0.3
+### Manual Installation - currently version 0.4
 - [download the repository](https://github.com/testguid/RAI-is-money/archive/refs/heads/main.zip)
 - extract
 - navigate to chrome://extensions/ or edge://extensions/
