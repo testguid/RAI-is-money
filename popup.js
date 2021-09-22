@@ -3,8 +3,8 @@ const conversionDisabledText = '❌ conversion disabled';
 const conversionEnabledText = '✔ conversion enabled';
 const extensionDisabled = '❌ extension disabled';
 const extensionEnabled = '✔ extension enabled';
-const useNotRedemptionPriceText = 'badge: use uni v3 rai/dai';
-const useRedemptionPriceText = 'badge: use redemption price';
+const useNotRedemptionPriceText = 'badge: uni v3 rai/dai';
+const useRedemptionPriceText = 'badge: redemption price';
 const format3 = { minimumFractionDigits: 3, maximumFractionDigits: 3 };
 const format4 = { minimumFractionDigits: 4, maximumFractionDigits: 4 };
 let url;
@@ -22,6 +22,7 @@ const redemptionRate = document.getElementById("redemption_rate");
 const pricesDisplay = document.getElementById("prices_list");
 const advancedToggle = document.getElementById("advancedToggle");
 const advanced = document.getElementById("advanced");
+const logo = document.getElementById("reflexer");
 
 window.addEventListener('DOMContentLoaded', onLoad);
 
@@ -31,7 +32,13 @@ useRedemptionPrice.addEventListener('click', onRedemptionPrice);
 highlight.addEventListener('click', onHighlight);
 badgePrice.addEventListener('click', onBadge);
 advancedToggle.addEventListener('click', onAdvanced);
+logo.addEventListener('click', onLogo);
 conversionFormat.addEventListener('input', onConversionFormat);
+
+function onLogo(event) {
+    event.preventDefault();
+    chrome.tabs.create({url: 'https://reflexer.finance/'});
+}
 
 function onBlacklist(event) {
     if (!options.conversionEnabled) {

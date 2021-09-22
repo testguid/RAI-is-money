@@ -21,17 +21,17 @@ Add from the [chrome web store listing.](https://chrome.google.com/webstore/deta
   - load unpacked and point to the extension folder ex: \downloads\RAI is money 
 
 ## Release Notes
-### 0.1
-Initial commit.
-
-### 0.2
-Better initial experience for the badge price (it will appear after first page load rather than after 30 minutes or extension menu interaction).
+### 0.4
+Added conversion price display. Added conversion formatting feature. UI tweaks.
 
 ### 0.3
 Submission for the second bounty!
 
-### 0.4
-Added conversion price display. Added conversion formatting feature. UI tweaks.
+### 0.2
+Better initial experience for the badge price (it will appear after first page load rather than after 30 minutes or extension menu interaction).
+
+### 0.1
+Initial commit.
 
 ## Features and Examples
 - fiat and stablecoin -> RAI conversion
