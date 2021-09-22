@@ -30,6 +30,9 @@ Better initial experience for the badge price (it will appear after first page l
 ### 0.3
 Submission for the second bounty!
 
+### 0.4
+Added conversion price display. Added conversion formatting feature. UI tweaks.
+
 ## Features and Examples
 - fiat and stablecoin -> RAI conversion
     - Document traversal and observation to catch every relevant price.
