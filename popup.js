@@ -3,8 +3,8 @@ const conversionDisabledText = '❌ conversion disabled';
 const conversionEnabledText = '✔ conversion enabled';
 const extensionDisabled = '❌ extension disabled';
 const extensionEnabled = '✔ extension enabled';
-const useNotRedemptionPriceText = 'use uni v3 rai/dai';
-const useRedemptionPriceText = 'use redemption price';
+const useNotRedemptionPriceText = 'badge: use uni v3 rai/dai';
+const useRedemptionPriceText = 'badge: use redemption price';
 const format3 = { minimumFractionDigits: 3, maximumFractionDigits: 3 };
 const format4 = { minimumFractionDigits: 4, maximumFractionDigits: 4 };
 let url;
@@ -12,6 +12,7 @@ let url;
 const blacklistToggle = document.getElementById("blacklist_toggle");
 const globalToggle = document.getElementById("global_toggle");
 const useRedemptionPrice = document.getElementById("use_redemption_price");
+const conversionFormat = document.getElementById("conversion_format");
 const highlight = document.getElementById("highlight");
 const badgePrice = document.getElementById("badge_price");
 const raiPrice = document.getElementById("rai_price");
@@ -30,6 +31,7 @@ useRedemptionPrice.addEventListener('click', onRedemptionPrice);
 highlight.addEventListener('click', onHighlight);
 badgePrice.addEventListener('click', onBadge);
 advancedToggle.addEventListener('click', onAdvanced);
+conversionFormat.addEventListener('input', onConversionFormat);
 
 function onBlacklist(event) {
     if (!options.conversionEnabled) {
@@ -60,6 +62,14 @@ function onHighlight(event) {
 
 function onBadge(event) {
     options.priceOnBadge = badgePrice.checked;
+    chrome.storage.sync.set({ options: options });
+}
+
+function onConversionFormat() {
+    if (!conversionFormat.value.includes('{amount}') || !conversionFormat.value.includes('{suffix}')) {
+        return;
+    }
+    options.conversionFormat = conversionFormat.value;
     chrome.storage.sync.set({ options: options });
 }
 
@@ -116,6 +126,7 @@ function onLoad() {
         useRedemptionPrice.textContent = data.options.useRedemptionPrice ? useRedemptionPriceText : useNotRedemptionPriceText;
         highlight.checked = data.options.highlightEnabled;
         badgePrice.checked = data.options.priceOnBadge;
+        conversionFormat.value = options.conversionFormat;
         if (options.advanced) {
             advanced.classList.remove("hide");
         } else {

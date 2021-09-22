@@ -230,10 +230,6 @@ function captureConversion(groups, priceDivisor) {
         }
     }
     num = parseFloat(num) / priceDivisor;
-    let postfix = '';
-    if (groups.amountPostfix) {
-        postfix = groups.amountPostfix;
-    }
     let digits = groups.decimals?.length || 0;
     if (num < 1 && groups.amount.length > 1) {
         digits = groups.amount.length - 2;
@@ -248,7 +244,8 @@ function captureConversion(groups, priceDivisor) {
     if (groups.decimalMark) {
         result = result.replace(/\.(?!.*\.)/g, groups.decimalMark);
     }
-    return result + postfix + ' RAI';
+    let formattedResult = options.conversionFormat.replace('{amount}', result);
+    return formattedResult.replace('{suffix}', groups.amountPostfix || '');
 }
 
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {

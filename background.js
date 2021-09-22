@@ -5,7 +5,8 @@ const defaultOptions = {
     digits: 3,
     highlightEnabled: false,
     refreshInterval: 30,
-    priceOnBadge: false
+    priceOnBadge: false,
+    conversionFormat: '{amount}{suffix} RAI'
 };
 
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
