@@ -103,7 +103,8 @@ function writePrices(prices) {
     raiPrice.textContent = '1 RAI = ' + prices.marketPriceRaiInDai.toLocaleString(undefined, format4) + ' DAI';
     daiPrice.textContent = '1 DAI = ' + prices.marketPriceDaiInRai.toLocaleString(undefined, format4) + ' RAI';
     redemptionPrice.textContent = prices.redemptionPrice.toLocaleString(undefined, format4);
-    redemptionRate.textContent = prices.redemptionRate.toLocaleString(undefined, format3) + '%';
+    const redemptionApy = (prices.redemptionRate - 1) * 100;
+    redemptionRate.textContent = redemptionApy.toLocaleString(undefined, format3) + '%';
     
     for (const entry of Object.entries(displayNames)) {
         const listItem = document.createElement('li');
