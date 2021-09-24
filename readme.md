@@ -10,7 +10,7 @@ None! Pure JS.
 Any Chromium based browser is supported.
 
 ## Installation
-### Store - currently version 0.3
+### Store - currently version 0.4
 Add from the [chrome web store listing.](https://chrome.google.com/webstore/detail/rai-is-money/efedgnjpkdppihmkeapeloadceipmjfb)
 
 ### Manual Installation - currently version 0.4
