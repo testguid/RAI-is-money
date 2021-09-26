@@ -63,8 +63,8 @@ const indicators = {
 
 const decimalNames = ['negation', 'amount', 'thousandsMark', 'decimalMark', 'amountPostfix', 'decimals'];
 const decimal = /(?<negation>-\s*)?(?<amount>(?:(?:\d{1,3}){1})(?:(?:(?<thousandsMark>[\s|\.|\,])\d{3}|\d)*)(?:(?<decimalMark>[\.|\,])(?<decimals>\d+))?)(?:\s*(?<amountPostfix>k|mm?|b|t)(?![a-z0-9]))?/
-const st = /(?<![\[\]\<\>a-z0-9]|[\,\.][0-9])/
-const end = /(?![\[\]\<\>a-z0-9]|[\,\.][0-9])/
+const st = /(?<![%\[\]\<\>a-z0-9]|[\,\.][0-9])/
+const end = /(?![%\[\]\<\>a-z0-9]|[\,\.][0-9])/
 const rPre = `${st.source}(?:(?:${buildIndicators('Pre')})\\s*)${decimal.source}(?:\\s*(?:${buildIndicators('Post')}))?${end.source}`;
 const rPost = `${st.source}(?:(?:${buildIndicators('Pre')})\\s*)?${decimal.source}(?:\\s*(?:${buildIndicators('Post')}))${end.source}`;
 const globalRegexPre = new RegExp(rPre, 'igm');
