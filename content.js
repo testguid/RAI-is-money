@@ -1,6 +1,6 @@
 const indicators = {
     usd: {
-        textSymbols: [/(?:United\s*States\s*|US\s*|U\.S\.\s*)?Dollars?/, /USD?(?!\s*(?:DAI|COIN|USDT))/],
+        textSymbols: [/(?:United\s*States\s*|US\s*|U\.S\.\s*)?Dollars?/, /USD?/],
         symbol: /\$/
     },
     eur: {
@@ -32,19 +32,19 @@ const indicators = {
         name: 'usd-coin'
     },
     dai: {
-        textSymbols: [/DAI(?!\s*DAI)/]
+        textSymbols: [/DAI/]
     },
     tether: {
-        textSymbols: [/USDT(?!\s*USDT)/]
+        textSymbols: [/USDT/]
     },
     nusd: {
-        textSymbols: [/sUSD(?!\s*sUSD)/]
+        textSymbols: [/sUSD/]
     },
     terrausd: {
         textSymbols: [/UST/]
     },
     pusd: {
-        textSymbols: [/paxos/, /PAX(?!.*RAI)/, /USDP(?!.*RAI)/],
+        textSymbols: [/paxos/, /PAX/, /USDP/],
         name: 'paxos-standard'
     },
     busd: {
@@ -63,12 +63,10 @@ const indicators = {
 
 const decimalNames = ['negation', 'amount', 'thousandsMark', 'decimalMark', 'amountPostfix', 'decimals'];
 const decimal = /(?<negation>-\s*)?(?<amount>(?:(?:\d{1,3}){1})(?:(?:(?<thousandsMark>[\s|\.|\,])\d{3}|\d)*)(?:(?<decimalMark>[\.|\,])(?<decimals>\d+))?)(?:\s*(?<amountPostfix>k|mm?|b|t)(?![a-z0-9]))?/
-const st = /(?<!(?:RAI\s*)|[\[\]\<\>a-z0-9]|[\,\.][0-9])/
-const end = /(?!(?:\s*RAI)|[\[\]\<\>a-z0-9]|[\,\.][0-9])/
+const st = /(?<![\[\]\<\>a-z0-9]|[\,\.][0-9])/
+const end = /(?![\[\]\<\>a-z0-9]|[\,\.][0-9])/
 const rPre = `${st.source}(?:(?:${buildIndicators('Pre')})\\s*)${decimal.source}(?:\\s*(?:${buildIndicators('Post')}))?${end.source}`;
 const rPost = `${st.source}(?:(?:${buildIndicators('Pre')})\\s*)?${decimal.source}(?:\\s*(?:${buildIndicators('Post')}))${end.source}`;
-console.log(new RegExp(rPre, 'igm'))
-console.log(new RegExp(rPost, 'igm'))
 const globalRegexPre = new RegExp(rPre, 'igm');
 const globalRegexPost = new RegExp(rPost, 'igm');
 const regexPre = new RegExp(rPre, 'im');
@@ -119,7 +117,10 @@ function endHighlight(element, elementData) {
     element.style.textShadow = elementData.color;
 }
 
-function replaceInTextNode(node, replacerFunction) {
+function replaceInTextNode(node) {
+    if (NON_PROSE_ELEMENTS[node.tagName?.toLowerCase()]) {
+        return;
+    }
     let newText = node.textContent.replace(globalRegexPre, replacerFunction);
     if (newText !== node.textContent) {
         if (!elementMap.has(node)) {
@@ -141,27 +142,57 @@ function replaceInTextNode(node, replacerFunction) {
         elementData.originalText = node.textContent;
         elementData.newText = newText;
         elementData.conversion = true;
-        node.textContent = newText;        
+        node.textContent = newText;
         highlight(node, elementData);
     }
 }
 
-function replaceInText(element, replacerFunction) {
+const NON_PROSE_ELEMENTS = {
+    br:1, hr:1,
+    script:1, style:1, img:1, video:1, audio:1, canvas:1, svg:1, map:1, object:1,
+    textarea:1
+};
+
+const NON_CONTIGUOUS_PROSE_ELEMENTS = {
+    // Elements that will not contain prose or block elements where we don't
+    // want prose to be matches across element borders:
+
+    // Block Elements
+    address:1, article:1, aside:1, blockquote:1, dd:1, div:1,
+    dl:1, fieldset:1, figcaption:1, figure:1, footer:1, form:1, h1:1, h2:1, h3:1,
+    h4:1, h5:1, h6:1, header:1, hgroup:1, hr:1, main:1, nav:1, noscript:1, ol:1,
+    output:1, p:1, pre:1, section:1, ul:1,
+    // Other misc. elements that are not part of continuous inline prose:
+    br:1, li: 1, summary: 1, dt:1, details:1, rp:1, rt:1, rtc:1,
+    // Media / Source elements:
+    script:1, style:1, img:1, video:1, audio:1, canvas:1, svg:1, map:1, object:1,
+    // Input elements
+    input:1, textarea:1, select:1, option:1, optgroup:1, button:1,
+    // Table related elements:
+    table:1, tbody:1, thead:1, th:1, tr:1, td:1, caption:1, col:1, tfoot:1, colgroup:1
+};
+
+function replaceInText(element) {
+    if (NON_PROSE_ELEMENTS[element.tagName?.toLowerCase()]) {
+        return false;
+    }
+    let validChildren = true;
     for (let node of element.childNodes) {
         switch (node.nodeType) {
             case Node.ELEMENT_NODE:
-                replaceInText(node, replacerFunction);
+                validChildren = replaceInText(node) && validChildren;
                 break;
             case Node.TEXT_NODE:
-                replaceInTextNode(node, replacerFunction);
+                replaceInTextNode(node);
                 break;
             case Node.DOCUMENT_NODE:
-                replaceInText(node, replacerFunction);
+                validChildren = replaceInText(node) && validChildren;
         }
     }
-    if (element.textContent.match(regexPre) || element.textContent.match(regexPost)) {
-        replaceInTextNode(element, replacerFunction);
+    if (validChildren) {
+        replaceInTextNode(element);
     }
+    return !NON_CONTIGUOUS_PROSE_ELEMENTS[element.tagName?.toLowerCase()] && validChildren;
 }
 
 async function startReplace(storage) {
@@ -171,8 +202,7 @@ async function startReplace(storage) {
         return;
     }
     chrome.runtime.sendMessage({ updateBadge: true }, function () { });
-    const replacerFunction = getReplacerFunction();
-    replaceAndObserve(document, replacerFunction);
+    replaceAndObserve(document);
 }
 
 function start() {
@@ -181,14 +211,17 @@ function start() {
 
 function handleMutations(mutations) {
     for (const mutation of mutations) {
-        if (mutation.target.textContent) {
-            replaceInText(mutation.target, getReplacerFunction());
+        if (mutation.type === "characterData") {
+            replaceInTextNode(mutation.target);
+        }
+        if (mutation.type === "childList" && mutation.addedNodes.length > 0) {
+            replaceInText(mutation.target);
         }
     }
 }
 
-function replaceAndObserve(document, replacerFunction) {
-    replaceInText(document.body, replacerFunction);
+function replaceAndObserve(document) {
+    replaceInText(document.body);
     observe(handleMutations, document.body, { childList: true, subtree: true, characterData: true });
 }
 
@@ -198,20 +231,18 @@ function observe(callback, element, options) {
     observer.observe(element, options);
 }
 
-function getReplacerFunction() {
-    return function (...params) {
-        let groups = params.pop();
-        for (const entry of Object.entries(groups)) {
-            if (!entry[1] || decimalNames.includes[entry[0]]) {
-                continue;
-            }
-            let key = entry[0].replace(/Pre|Post/, '');
-            if (indicators[key]) {
-                return captureConversion(groups, prices.priceDivisors[indicators[key].name || key]);
-            }
+const replacerFunction = function (...params) {
+    let groups = params.pop();
+    for (const entry of Object.entries(groups)) {
+        if (!entry[1] || decimalNames.includes[entry[0]]) {
+            continue;
+        }
+        let key = entry[0].replace(/Pre|Post/, '');
+        if (indicators[key]) {
+            return captureConversion(groups, prices.priceDivisors[indicators[key].name || key]);
         }
     }
-}
+};
 
 function captureConversion(groups, priceDivisor) {
     if (!groups.amount || typeof parseFloat(groups.amount) !== 'number') {
@@ -265,6 +296,7 @@ chrome.storage.onChanged.addListener(function (changes, namespace) {
         elementMap.forEach(setOriginalText);
         return;
     }
+    observer.disconnect();
     elementMap.forEach(setConversionText);
     start();
 });
@@ -282,5 +314,3 @@ function setConversionText(value, key, map) {
 }
 
 start();
-
-
