@@ -6,7 +6,7 @@ const extensionEnabled = '✔ extension enabled';
 const useNotRedemptionPriceText = 'badge: uni v3 rai/dai';
 const useRedemptionPriceText = 'badge: redemption price';
 const format3 = { minimumFractionDigits: 3, maximumFractionDigits: 3 };
-const format4 = { minimumFractionDigits: 4, maximumFractionDigits: 4 };
+const format5 = { minimumFractionDigits: 5, maximumFractionDigits: 5 };
 let url;
 
 const blacklistToggle = document.getElementById("blacklist_toggle");
@@ -100,9 +100,9 @@ function onAdvanced(event) {
 }
 
 function writePrices(prices) {
-    raiPrice.textContent = '1 RAI = ' + prices.marketPriceRaiInDai.toLocaleString(undefined, format4) + ' DAI';
-    daiPrice.textContent = '1 DAI = ' + prices.marketPriceDaiInRai.toLocaleString(undefined, format4) + ' RAI';
-    redemptionPrice.textContent = prices.redemptionPrice.toLocaleString(undefined, format4);
+    raiPrice.textContent = '1 RAI = ' + prices.marketPriceRaiInDai.toLocaleString(undefined, format5) + ' DAI';
+    daiPrice.textContent = '1 DAI = ' + prices.marketPriceDaiInRai.toLocaleString(undefined, format5) + ' RAI';
+    redemptionPrice.textContent = prices.redemptionPrice.toLocaleString(undefined, format5);
     const redemptionApy = (prices.redemptionRate - 1) * 100;
     redemptionRate.textContent = redemptionApy.toLocaleString(undefined, format3) + '%';
     
