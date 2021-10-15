@@ -111,10 +111,10 @@ function updateCache(responseArray) {
 class Prices {
     constructor(responseArray, lastUpdate) {
         this.responseArray = responseArray;
-        this.redemptionPrice = parseFloat(responseArray[0].value.data.systemState.currentRedemptionPrice.value);
-        this.redemptionRate = parseFloat(responseArray[0].value.data.systemState.currentRedemptionRate.annualizedRate);
-        this.marketPriceRaiInDai = parseFloat(responseArray[1].value.data.pools[0].token1Price);
-        this.marketPriceDaiInRai = parseFloat(responseArray[1].value.data.pools[0].token0Price);
+        this.redemptionPrice = parseFloat(responseArray[0].value?.data.systemState.currentRedemptionPrice.value);
+        this.redemptionRate = parseFloat(responseArray[0].value?.data.systemState.currentRedemptionRate.annualizedRate);
+        this.marketPriceRaiInDai = parseFloat(responseArray[1].value?.data.pools[0].token1Price);
+        this.marketPriceDaiInRai = parseFloat(responseArray[1].value?.data.pools[0].token0Price);
         this.priceDivisors = new Object();
         for (const id of vs_currencies.concat(coingeckoIds)) {
             this.priceDivisors[id] = this.getPriceDivisor(id);

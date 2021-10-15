@@ -198,7 +198,7 @@ function replaceInText(element) {
 async function startReplace(storage) {
     Object.assign(options, storage.options);
     Object.assign(prices, storage.prices);
-    if (conversionsDisabled()) {
+    if (conversionsDisabled(options)) {
         return;
     }
     chrome.runtime.sendMessage({ updateBadge: true }, function () { });
@@ -251,7 +251,7 @@ function captureConversion(groups, priceDivisor) {
     let num = groups.amount;
     if (groups.decimalMark === ',' || groups.thousandsMark === '.') {
         num = num.replace(/[\s|\.]/g, '');
-        num = num.replace(/\,]/g, '.');        
+        num = num.replace(/\,]/g, '.');
     } else {
         if (num.charAt(0) === '0' && !groups.decimalMark) {
             groups.decimalMark = num.charAt(1);
@@ -287,22 +287,21 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
 });
 
 chrome.storage.onChanged.addListener(function (changes, namespace) {
-    if (!changes.options) {
+    if (!changes.options || conversionsDisabled(changes.options.newValue) === conversionsDisabled(changes.options.oldValue)) {
         return;
     }
-    Object.assign(options, changes.options.newValue);
-    if (conversionsDisabled()) {
-        observer.disconnect();
+    if (conversionsDisabled(changes.options.newValue)) {
+        observer && observer.disconnect();
         elementMap.forEach(setOriginalText);
         return;
     }
-    observer.disconnect();
+    observer && observer.disconnect();
     elementMap.forEach(setConversionText);
     start();
 });
 
-function conversionsDisabled() {
-    return options.blacklist[window.location.hostname] || !options.conversionEnabled;
+function conversionsDisabled(inputOptions) {
+    return inputOptions.blacklist[window.location.hostname] || !inputOptions.conversionEnabled;
 }
 
 function setOriginalText(value, key, map) {
