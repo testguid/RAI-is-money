@@ -13,11 +13,11 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     if (!request.updateBadge) {
         return;
     }
-    chrome.storage.sync.get(null, updateBadgeWithConversionPrice);
+    chrome.storage.local.get(null, updateBadgeWithConversionPrice);
 });
 
 chrome.runtime.onInstalled.addListener(() => {
-    chrome.storage.sync.set({ options: defaultOptions });
+    chrome.storage.local.set({ options: defaultOptions });
     sendRequestPriceUpdateMessage()
 });
 
@@ -63,5 +63,5 @@ chrome.alarms.create('update', { delayInMinutes: defaultOptions.refreshInterval,
 
 chrome.storage.onChanged.addListener(function (changes, namespace) {
     console.log(changes)
-    chrome.storage.sync.get(null, updateBadgeWithConversionPrice);
+    chrome.storage.local.get(null, updateBadgeWithConversionPrice);
 });

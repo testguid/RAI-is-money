@@ -10,7 +10,7 @@ None! Pure JS.
 Any Chromium based browser is supported.
 
 ## Installation
-### Store - currently version 0.5
+### Store - currently version 0.6
 Add from the [chrome web store listing.](https://chrome.google.com/webstore/detail/rai-is-money/efedgnjpkdppihmkeapeloadceipmjfb)
 
 ### Manual Installation - currently version 0.6
@@ -21,6 +21,9 @@ Add from the [chrome web store listing.](https://chrome.google.com/webstore/deta
   - load unpacked and point to the extension folder ex: \downloads\RAI is money 
 
 ## Release Notes
+### 0.7
+Sync storage does not seem to work very well when not signed in so now using local storage instead.
+
 ### 0.6
 Better error handling.
 

@@ -104,7 +104,7 @@ function fetchPromise(url, query) {
 
 function updateCache(responseArray) {
     const prices = new Prices(responseArray, Date.now());
-    chrome.storage.sync.set({ prices: prices });
+    chrome.storage.local.set({ prices: prices });
     return prices;
 }
 

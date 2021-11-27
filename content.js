@@ -206,7 +206,7 @@ async function startReplace(storage) {
 }
 
 function start() {
-    chrome.storage.sync.get(null, startReplace);
+    chrome.storage.local.get(null, startReplace);
 }
 
 function handleMutations(mutations) {

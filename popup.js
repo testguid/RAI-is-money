@@ -46,30 +46,30 @@ function onBlacklist(event) {
     }
     options.blacklist[url] = !options.blacklist[url];
     blacklistToggle.textContent = options.blacklist[url] ? conversionDisabledText : conversionEnabledText;
-    chrome.storage.sync.set({ options: options });
+    chrome.storage.local.set({ options: options });
 }
 
 function onGlobal(event) {
     options.conversionEnabled = !options.conversionEnabled;
     blacklistToggle.textContent = getBlacklistText();
     globalToggle.textContent = options.conversionEnabled ? extensionEnabled : extensionDisabled;
-    chrome.storage.sync.set({ options: options });
+    chrome.storage.local.set({ options: options });
 }
 
 function onRedemptionPrice(event) {
     options.useRedemptionPrice = !options.useRedemptionPrice;
     useRedemptionPrice.textContent = options.useRedemptionPrice ? useRedemptionPriceText : useNotRedemptionPriceText;
-    chrome.storage.sync.set({ options: options });
+    chrome.storage.local.set({ options: options });
 }
 
 function onHighlight(event) {
     options.highlightEnabled = highlight.checked;
-    chrome.storage.sync.set({ options: options });
+    chrome.storage.local.set({ options: options });
 }
 
 function onBadge(event) {
     options.priceOnBadge = badgePrice.checked;
-    chrome.storage.sync.set({ options: options });
+    chrome.storage.local.set({ options: options });
 }
 
 function onConversionFormat() {
@@ -77,7 +77,7 @@ function onConversionFormat() {
         return;
     }
     options.conversionFormat = conversionFormat.value;
-    chrome.storage.sync.set({ options: options });
+    chrome.storage.local.set({ options: options });
 }
 
 function getBlacklistText() {
@@ -96,7 +96,7 @@ function onAdvanced(event) {
     } else {
         advanced.classList.add("hide");
     }
-    chrome.storage.sync.set({ options: options });
+    chrome.storage.local.set({ options: options });
 }
 
 function writePrices(prices) {
@@ -124,7 +124,7 @@ function onLoad() {
         document.getElementById("current_url").textContent = url;
     });
 
-    chrome.storage.sync.get(null, (data) => {
+    chrome.storage.local.get(null, (data) => {
         console.log(options)
         Object.assign(options, data.options);
         globalToggle.setAttribute('enabled', data.options.conversionEnabled);
