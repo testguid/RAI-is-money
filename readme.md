@@ -21,6 +21,9 @@ Add from the [chrome web store listing.](https://chrome.google.com/webstore/deta
   - load unpacked and point to the extension folder ex: \downloads\RAI is money 
 
 ## Release Notes
+### 0.8
+Now checking for existing storage in the onInstalled listener.
+
 ### 0.7
 Sync storage does not seem to work very well when not signed in so now using local storage instead.
 

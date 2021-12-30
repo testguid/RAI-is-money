@@ -17,9 +17,15 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
 });
 
 chrome.runtime.onInstalled.addListener(() => {
-    chrome.storage.local.set({ options: defaultOptions });
+    chrome.storage.local.get(null, writeDefaultIfEmpty);
     sendRequestPriceUpdateMessage()
 });
+
+function writeDefaultIfEmpty(storage) {
+    if (!storage.options) {
+        chrome.storage.local.set({ options: defaultOptions });
+    }
+}
 
 function updateBadge(price) {
     chrome.action.setBadgeText({
