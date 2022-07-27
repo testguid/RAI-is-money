@@ -10,10 +10,10 @@ None! Pure JS.
 Any Chromium based browser is supported.
 
 ## Installation
-### Store - currently version 0.7
+### Store - currently version 0.8
 Add from the [chrome web store listing.](https://chrome.google.com/webstore/detail/rai-is-money/efedgnjpkdppihmkeapeloadceipmjfb)
 
-### Manual Installation - currently version 0.7
+### Manual Installation - currently version 0.8
 - [download the repository](https://github.com/testguid/RAI-is-money/archive/refs/heads/main.zip)
 - extract
 - navigate to chrome://extensions/ or edge://extensions/
