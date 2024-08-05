@@ -1,4 +1,4 @@
-const redemptionPriceEndpoint = 'https://subgraph.reflexer.finance/subgraphs/name/reflexer-labs/rai';
+const redemptionPriceEndpoint = 'https://gateway-arbitrum.network.thegraph.com/api/a560616a2b19516ba0775c2e5f0aaa45/subgraphs/id/ENRiqhB9eVqXPzNomBf5ryMpgot4neuAcTj69qFaznsM';
 const redemptionPriceQuery = `
   query {
     systemState (id: "current") {
@@ -12,7 +12,7 @@ const redemptionPriceQuery = `
     }
   }`;
 
-const marketPriceEndpoint = 'https://api.thegraph.com/subgraphs/name/uniswap/uniswap-v3';
+const marketPriceEndpoint = 'https://gateway-arbitrum.network.thegraph.com/api/856d71984af92a48a778ba427f977f5c/subgraphs/id/5zvR82QoaXYFyDEKLZ9t6v9adgnptxYpKpSbxtgVENFV';
 const marketPriceQuery = `
   query pools {
     pools(where: {id_in: ["0xcb0c5d9d92f4f2f80cce7aa271a1e148c226e19d"]}, orderBy: totalValueLockedUSD, orderDirection: desc, subgraphError: allow) {

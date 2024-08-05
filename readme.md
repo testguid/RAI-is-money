@@ -10,10 +10,10 @@ None! Pure JS.
 Any Chromium based browser is supported.
 
 ## Installation
-### Store - currently version 0.8
+### Store - currently version 0.9
 Add from the [chrome web store listing.](https://chrome.google.com/webstore/detail/rai-is-money/efedgnjpkdppihmkeapeloadceipmjfb)
 
-### Manual Installation - currently version 0.8
+### Manual Installation - currently version 0.9
 - [download the repository](https://github.com/testguid/RAI-is-money/archive/refs/heads/main.zip)
 - extract
 - navigate to chrome://extensions/ or edge://extensions/
@@ -21,6 +21,9 @@ Add from the [chrome web store listing.](https://chrome.google.com/webstore/deta
   - load unpacked and point to the extension folder ex: \downloads\RAI is money 
 
 ## Release Notes
+### 0.9
+Fixed endpoints
+
 ### 0.8
 Now checking for existing storage in the onInstalled listener.
 
